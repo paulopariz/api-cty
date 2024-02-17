@@ -9,6 +9,10 @@ router.get("/", (req, res) => {
   return res.send("OBA");
 });
 
-router.post("/cities", CitiesController.create);
+router.post(
+  "/cities",
+  CitiesController.createValidation,
+  CitiesController.create
+);
 
 export { router };
