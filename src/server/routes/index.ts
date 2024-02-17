@@ -5,9 +5,11 @@ import { CitiesController } from "./../controllers";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  return res.send("OBA");
-});
+router.get(
+  "/cities",
+  CitiesController.getAllValidation,
+  CitiesController.getAll
+);
 
 router.post(
   "/cities",
