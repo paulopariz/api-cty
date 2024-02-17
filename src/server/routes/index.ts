@@ -9,5 +9,6 @@ router.get("/cities", CitiesController.getAllValidation, CitiesController.getAll
 router.post("/cities",CitiesController.createValidation, CitiesController.create); // prettier-ignore
 router.get("/cities/:id", CitiesController.getByIdValidation, CitiesController.getById); // prettier-ignore
 router.put("/cities/:id", CitiesController.updateByIdValidation, CitiesController.updateById); // prettier-ignore
+router.delete("/cities/:id", CitiesController.deleteByIdValidation, CitiesController.deleteById); // prettier-ignore
 
 export { router };
