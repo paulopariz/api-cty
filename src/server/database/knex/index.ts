@@ -1,12 +1,12 @@
 import { knex } from "knex";
+
 import { development, production, test } from "./Environment";
 
-const getEnvironmente = () => {
+const getEnvironment = () => {
   switch (process.env.NODE_ENV) {
     case "production":
       return production;
-
-    case "teste":
+    case "test":
       return test;
 
     default:
@@ -14,4 +14,4 @@ const getEnvironmente = () => {
   }
 };
 
-export const Knex = knex(getEnvironmente());
+export const Knex = knex(getEnvironment());
