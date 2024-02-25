@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 import { ICity } from "../../database/models";
+import { CitiesProvider } from "../../providers/cities";
 
 interface IParamProps {
   id?: number;
@@ -28,12 +29,15 @@ export const updateById = async (
   req: Request<IParamProps, {}, IBodyProps>,
   res: Response
 ) => {
-  if (Number(req.params.id) === 9423042304)
+  const result = await CitiesProvider.updateById(1, req.body);
+
+  if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
-        default: "Registro não encontrado",
+        default: result.message,
       },
     });
+  }
 
-  return res.status(StatusCodes.NO_CONTENT).send();
+  return res.status(StatusCodes.OK).json(result);
 };

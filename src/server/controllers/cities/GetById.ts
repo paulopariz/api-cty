@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
+import { CitiesProvider } from "../../providers/cities";
 
 interface IParamProps {
   id?: number;
@@ -16,15 +17,16 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
-  if (Number(req.params.id) === 9423042304)
+  const id = req.params.id !== undefined ? req.params.id : 0;
+  const result = await CitiesProvider.getById(id);
+
+  if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
-        default: "Registro não encontrado",
+        default: result.message,
       },
     });
+  }
 
-  return res.status(StatusCodes.OK).json({
-    id: req.params.id,
-    name: "São Paulo",
-  });
+  return res.status(StatusCodes.OK).send(result);
 };
