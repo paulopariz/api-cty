@@ -4,15 +4,11 @@ import { ICity } from "../../database/models";
 
 export const create = async (
   city: Omit<ICity, "id">
-): Promise<number | Error> => {
+): Promise<ICity | Error> => {
   try {
-    const [result] = await Knex(ETableNames.cidade)
-      .insert(city)
-      .returning("id");
+    const [result] = await Knex(ETableNames.cidade).insert(city).returning("*");
 
     if (typeof result === "object") {
-      return result.id;
-    } else if (typeof result === "number") {
       return result;
     }
 

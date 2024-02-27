@@ -18,8 +18,15 @@ export const deleteByIdValidation = validation((getSchema) => ({
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
   try {
-    const id = req.params.id !== undefined ? req.params.id : 0;
-    const result = await CitiesProvider.deleteById(id);
+    if (!req.params.id) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        errors: {
+          default: "O id é obrigatório",
+        },
+      });
+    }
+
+    const result = await CitiesProvider.deleteById(req.params.id);
 
     if (result instanceof Error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -29,7 +36,9 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
       });
     }
 
-    return res.status(StatusCodes.OK).send(result);
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: "Registro deletado com sucesso" });
   } catch (error) {
     console.error("e", error);
   }

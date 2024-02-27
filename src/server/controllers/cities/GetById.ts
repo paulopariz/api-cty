@@ -17,8 +17,15 @@ export const getByIdValidation = validation((getSchema) => ({
 }));
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
-  const id = req.params.id !== undefined ? req.params.id : 0;
-  const result = await CitiesProvider.getById(id);
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: "O id é obrigatório",
+      },
+    });
+  }
+
+  const result = await CitiesProvider.getById(req.params.id);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

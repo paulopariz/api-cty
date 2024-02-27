@@ -29,7 +29,17 @@ export const updateById = async (
   req: Request<IParamProps, {}, IBodyProps>,
   res: Response
 ) => {
-  const result = await CitiesProvider.updateById(1, req.body);
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: "O id é obrigatório",
+      },
+    });
+  }
+
+  const result = await CitiesProvider.updateById(req.params.id, req.body);
+
+  console.log("result", result);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
