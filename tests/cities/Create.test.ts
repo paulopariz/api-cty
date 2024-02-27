@@ -8,7 +8,7 @@ describe("Cities - Create", () => {
     });
 
     expect(res1.statusCode).toEqual(StatusCodes.CREATED);
-    expect(typeof res1.body).toEqual("number");
+    expect(typeof res1.body).toEqual("object");
   });
 
   it("Quantidade de caracteres invalidos", async () => {

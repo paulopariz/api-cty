@@ -9,9 +9,9 @@ describe("Cities - DeleteById", () => {
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
 
-    const resDeleted = await testServer.delete(`/cities/${res.body}`).send();
+    const resDeleted = await testServer.delete(`/cities/${res.body.id}`).send();
 
-    expect(resDeleted.statusCode).toEqual(StatusCodes.NO_CONTENT);
+    expect(resDeleted.statusCode).toEqual(StatusCodes.OK);
   });
 
   it("Tenta apagar um registro que não existe", async () => {

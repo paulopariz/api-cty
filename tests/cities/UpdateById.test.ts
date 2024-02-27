@@ -10,10 +10,10 @@ describe("Cities - UpdateById", () => {
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
 
     const resUpdate = await testServer
-      .put(`/cities/${res.body}`)
+      .put(`/cities/${res.body.id}`)
       .send({ name: "Rio de Janeiro" });
 
-    expect(resUpdate.statusCode).toEqual(StatusCodes.NO_CONTENT);
+    expect(resUpdate.statusCode).toEqual(StatusCodes.OK);
   });
 
   it("Tenta atualizar um registro que não existe", async () => {

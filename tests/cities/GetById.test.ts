@@ -9,7 +9,7 @@ describe("Cities - GetById", () => {
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
 
-    const resget = await testServer.get(`/cities/${res.body}`).send();
+    const resget = await testServer.get(`/cities/${res.body.id}`).send();
 
     expect(resget.statusCode).toEqual(StatusCodes.OK);
     expect(resget.body).toHaveProperty("name");
