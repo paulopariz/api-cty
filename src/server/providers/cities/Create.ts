@@ -12,10 +12,10 @@ export const create = async (
       return result;
     }
 
-    return Error("Erro ao cadastrar o registro");
+    return new Error("Erro ao cadastrar o registro");
   } catch (error) {
     console.error(error);
 
-    return Error("Erro ao cadastrar o registro");
+    return new Error("Erro ao cadastrar o registro");
   }
 };
