@@ -11,7 +11,7 @@ export const create = async (
       .returning("*");
 
     const [{ count }] = await Knex(ETableNames.cidade)
-      .where("id", "=", person.city_id)
+      .where("id", "=", person.city)
       .count<[{ count: number }]>("* as count");
 
     if (count === 0) {

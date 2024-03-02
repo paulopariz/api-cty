@@ -15,6 +15,7 @@ router.delete("/cities/:id", CitiesController.deleteByIdValidation, CitiesContro
 
 //pessoas
 router.get("/persons", PersonsController.getAllValidation, PersonsController.getAll); // prettier-ignore
+router.get("/persons/:id", PersonsController.getByIdValidation, PersonsController.getById); // prettier-ignore
 router.post("/persons", PersonsController.createValidation, PersonsController.create); // prettier-ignore
 
 export { router };

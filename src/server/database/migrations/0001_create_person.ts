@@ -8,7 +8,7 @@ export async function up(knex: Knex) {
       table.string("name").index().notNullable();
       table.string("email").unique().notNullable();
       table
-        .bigInteger("city_id")
+        .bigInteger("city")
         .index()
         .notNullable()
         .references("id")
