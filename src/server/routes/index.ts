@@ -18,5 +18,6 @@ router.get("/persons", PersonsController.getAllValidation, PersonsController.get
 router.post("/persons", PersonsController.createValidation, PersonsController.create); // prettier-ignore
 router.get("/persons/:id", PersonsController.getByIdValidation, PersonsController.getById); // prettier-ignore
 router.put("/persons/:id", PersonsController.updateByIdValidation, PersonsController.updateById); // prettier-ignore
+router.delete("/persons/:id", PersonsController.deleteByIdValidation, PersonsController.deleteById); // prettier-ignore
 
 export { router };
