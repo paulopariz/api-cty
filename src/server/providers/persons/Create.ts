@@ -6,10 +6,6 @@ export const create = async (
   person: Omit<IPerson, "id">
 ): Promise<IPerson | Error> => {
   try {
-    const [result] = await Knex(ETableNames.person)
-      .insert(person)
-      .returning("*");
-
     const [{ count }] = await Knex(ETableNames.cidade)
       .where("id", "=", person.city)
       .count<[{ count: number }]>("* as count");
@@ -17,6 +13,10 @@ export const create = async (
     if (count === 0) {
       return new Error("Cidade não encontrada");
     }
+
+    const [result] = await Knex(ETableNames.person)
+      .insert(person)
+      .returning("*");
 
     if (typeof result === "object") {
       return result;

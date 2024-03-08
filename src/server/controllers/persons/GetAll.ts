@@ -6,7 +6,6 @@ import { StatusCodes } from "http-status-codes";
 import { PersonProvider } from "./../../providers/persons/index";
 
 interface IQueryProps {
-  id?: number;
   page?: number;
   limit?: number;
   filter?: string;
@@ -15,7 +14,6 @@ interface IQueryProps {
 export const getAllValidation = validation((getSchema) => ({
   query: getSchema<IQueryProps>(
     yup.object().shape({
-      id: yup.number().integer().optional().default(0),
       page: yup.number().optional().moreThan(0),
       limit: yup.number().optional().moreThan(0),
       filter: yup.string().optional(),
@@ -32,6 +30,25 @@ export const getAll = async (
     req.query.limit || 10,
     req.query.filter || ""
   );
+
+  const count = await PersonProvider.count(req.query.filter);
+
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  } else if (count instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: count.message,
+      },
+    });
+  }
+
+  res.setHeader("access-control-expose-headers", "x-total-count");
+  res.setHeader("x-total-count", count);
 
   return res.status(StatusCodes.OK).json(result);
 };
