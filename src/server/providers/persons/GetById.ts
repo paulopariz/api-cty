@@ -11,8 +11,6 @@ export const getById = async (id: number): Promise<IPerson | Error> => {
 
     const city = await Knex(ETableNames.cidade).where("id", "=", result.city);
 
-    console.log("city", city);
-
     if (result) return { ...result, city: city };
 
     return new Error("Registro não encontrado");

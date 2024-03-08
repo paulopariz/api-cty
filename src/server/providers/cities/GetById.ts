@@ -3,8 +3,6 @@ import { Knex } from "../../database/knex";
 import { ICity } from "../../database/models";
 
 export const getById = async (id: number): Promise<ICity | Error> => {
-  console.log("id", id);
-
   try {
     const result = await Knex(ETableNames.cidade)
       .select("*")

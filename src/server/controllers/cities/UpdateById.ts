@@ -39,8 +39,6 @@ export const updateById = async (
 
   const result = await CitiesProvider.updateById(req.params.id, req.body);
 
-  console.log("result", result);
-
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {

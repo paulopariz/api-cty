@@ -11,7 +11,7 @@ export const count = async (filter = ""): Promise<number | Error> => {
 
     return new Error("Erro ao buscar a quantidade total de registros");
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return new Error("Erro ao buscar a quantidade total de registros");
   }
