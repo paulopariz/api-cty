@@ -8,7 +8,7 @@ export const getAll = async (
   filter: string
 ): Promise<IPerson[] | Error> => {
   try {
-    const result = await Knex(ETableNames.person)
+    const result = await Knex(ETableNames.pessoa)
       .select("*")
       .where("name", "like", `%${filter}%`)
       .offset((page - 1) * limit)

@@ -3,7 +3,7 @@ import { ETableNames } from "../ETableName";
 
 export async function up(knex: Knex) {
   return knex.schema
-    .createTable(ETableNames.person, (table) => {
+    .createTable(ETableNames.pessoa, (table) => {
       table.bigIncrements("id").primary().index();
       table.string("name").index().notNullable();
       table.string("email").unique().notNullable();
@@ -19,12 +19,12 @@ export async function up(knex: Knex) {
       table.comment("Tabela para armazenar pessoa no sistema");
     })
     .then(() => {
-      console.log(`# Created tables ${ETableNames.person}`);
+      console.log(`# Created tables ${ETableNames.pessoa}`);
     });
 }
 
 export async function down(knex: Knex) {
-  return knex.schema.dropTable(ETableNames.person).then(() => {
-    console.log(`# Dropped tables ${ETableNames.person}`);
+  return knex.schema.dropTable(ETableNames.pessoa).then(() => {
+    console.log(`# Dropped tables ${ETableNames.pessoa}`);
   });
 }

@@ -14,7 +14,7 @@ export const create = async (
       return new Error("Cidade não encontrada");
     }
 
-    const [result] = await Knex(ETableNames.person)
+    const [result] = await Knex(ETableNames.pessoa)
       .insert(person)
       .returning("*");
 

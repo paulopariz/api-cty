@@ -15,12 +15,12 @@ export const updateById = async (
       return new Error("Cidade não encontrada");
     }
 
-    const result = await Knex(ETableNames.person)
+    const result = await Knex(ETableNames.pessoa)
       .update(person)
       .where("id", id);
 
     if (result > 0) {
-      const updatedPerson = await Knex(ETableNames.person)
+      const updatedPerson = await Knex(ETableNames.pessoa)
         .where("id", "=", id)
         .first();
 
