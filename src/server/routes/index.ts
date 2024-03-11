@@ -1,7 +1,7 @@
 import { Router } from "express";
 // import { StatusCodes } from "http-status-codes";
 
-import { CitiesController } from "./../controllers";
+import { CitiesController, UsersController } from "./../controllers";
 import { PersonsController } from "../controllers/persons";
 
 const router = Router();
@@ -19,5 +19,9 @@ router.post("/persons", PersonsController.createValidation, PersonsController.cr
 router.get("/persons/:id", PersonsController.getByIdValidation, PersonsController.getById); // prettier-ignore
 router.put("/persons/:id", PersonsController.updateByIdValidation, PersonsController.updateById); // prettier-ignore
 router.delete("/persons/:id", PersonsController.deleteByIdValidation, PersonsController.deleteById); // prettier-ignore
+
+//user
+router.post("/signin", UsersController.signInValidation, UsersController.signIn); // prettier-ignore
+router.post("/signup", UsersController.signUpValidation, UsersController.signUp); // prettier-ignore
 
 export { router };
