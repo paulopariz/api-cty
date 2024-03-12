@@ -19,7 +19,7 @@ export async function up(knex: Knex) {
       table.comment("Tabela para armazenar pessoa no sistema");
     })
     .then(() => {
-      console.log(`# Created tables ${ETableNames.pessoa}`);
+      console.log(`🔥 Created tables ${ETableNames.pessoa}`);
     });
 }
 
