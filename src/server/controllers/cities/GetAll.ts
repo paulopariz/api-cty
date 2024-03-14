@@ -35,6 +35,8 @@ export const getAll = async (
 
   const count = await CitiesProvider.count(req.query.filter);
 
+  console.log("ID", req.headers.idUser);
+
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
