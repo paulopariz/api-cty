@@ -18,15 +18,15 @@ describe("Persons - DeleteById", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  let city: number | undefined = undefined;
+  let job: number | undefined = undefined;
 
   beforeAll(async () => {
-    const cityCreated = await testServer
-      .post("/cities")
+    const jobCreated = await testServer
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({ name: "Teste12" });
 
-    city = cityCreated.body.id;
+    job = jobCreated.body.id;
   });
 
   it("Tenta apagar o registro sem o token de autenticação", async () => {
@@ -41,7 +41,7 @@ describe("Persons - DeleteById", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulodelete@del.com",
         name: "Paulo delete",
       });

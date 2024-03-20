@@ -3,7 +3,7 @@ import { Knex } from "../../database/knex";
 
 export const count = async (filter = ""): Promise<number | Error> => {
   try {
-    const [{ count }] = await Knex(ETableNames.cidade)
+    const [{ count }] = await Knex(ETableNames.job)
       .where("name", "like", `%${filter}%`)
       .count<[{ count: number }]>("* as count");
 

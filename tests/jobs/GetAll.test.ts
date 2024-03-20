@@ -1,11 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { testServer } from "./../jest.setup";
 
-describe("Cities - DeleteById", () => {
+describe("Jobs - GetAll", () => {
   let accessToken = "";
 
   beforeAll(async () => {
-    const email = "delete-cidades@gmail.com";
+    const email = "getAll-jobs@gmail.com";
 
     await testServer
       .post("/signup ")
@@ -18,16 +18,16 @@ describe("Cities - DeleteById", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  it("Tenta apagar um registro sem o token de autenticação", async () => {
-    const res = await testServer.delete("/cities/1").send();
+  it("Tenta buscar os registros sem o token de autenticação", async () => {
+    const res = await testServer.get("/jobs").send();
 
     expect(res.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
     expect(res.body).toHaveProperty("errors.default");
   });
 
-  it("Apaga o registro", async () => {
+  it("Busca todos os registros", async () => {
     const res = await testServer
-      .post("/cities")
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         name: "São Paulo",
@@ -35,21 +35,13 @@ describe("Cities - DeleteById", () => {
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
 
-    const resDeleted = await testServer
-      .delete(`/cities/${res.body.id}`)
+    const resGet = await testServer
+      .get("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send();
 
-    expect(resDeleted.statusCode).toEqual(StatusCodes.OK);
-  });
-
-  it("Tenta apagar um registro que não existe", async () => {
-    const res = await testServer
-      .delete("/cities/9423042304")
-      .set({ Authorization: `Bearer ${accessToken}` })
-      .send();
-
-    expect(res.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
-    expect(res.body).toHaveProperty("errors.default");
+    expect(Number(resGet.headers["x-total-count"])).toBeGreaterThan(0);
+    expect(resGet.statusCode).toEqual(StatusCodes.OK);
+    expect(resGet.body.length).toBeGreaterThan(0);
   });
 });

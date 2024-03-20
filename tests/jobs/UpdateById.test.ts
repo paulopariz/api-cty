@@ -1,11 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { testServer } from "./../jest.setup";
 
-describe("Cities - GetById", () => {
+describe("Jobs - UpdateById", () => {
   let accessToken = "";
 
   beforeAll(async () => {
-    const email = "getById-cidades@gmail.com";
+    const email = "updateById-jobs@gmail.com";
 
     await testServer
       .post("/signup ")
@@ -18,16 +18,18 @@ describe("Cities - GetById", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  it("Tenta buscar o registro por id sem o token de autenticação", async () => {
-    const res = await testServer.get(`/cities/1`).send();
+  it("Tenta atualizar o registro sem token de autenticação", async () => {
+    const res = await testServer
+      .put(`/jobs/1`)
+      .send({ name: "Rio de Janeiro" });
 
     expect(res.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
     expect(res.body).toHaveProperty("errors.default");
   });
 
-  it("Busca registro por id", async () => {
+  it("Atualiza o registro", async () => {
     const res = await testServer
-      .post("/cities")
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         name: "São Paulo",
@@ -35,20 +37,21 @@ describe("Cities - GetById", () => {
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
 
-    const resget = await testServer
-      .get(`/cities/1`)
+    const resUpdate = await testServer
+      .put(`/jobs/${res.body.id}`)
       .set({ Authorization: `Bearer ${accessToken}` })
-      .send();
 
-    expect(resget.statusCode).toEqual(StatusCodes.OK);
-    expect(resget.body).toHaveProperty("name");
+      .send({ name: "Rio de Janeiro" });
+
+    expect(resUpdate.statusCode).toEqual(StatusCodes.OK);
   });
 
-  it("Tenta buscar um registro que não existe", async () => {
+  it("Tenta atualizar um registro que não existe", async () => {
     const res = await testServer
-      .get("/cities/9423042304")
+      .put("/jobs/9423042304")
       .set({ Authorization: `Bearer ${accessToken}` })
-      .send();
+
+      .send({ name: "São Paulo" });
 
     expect(res.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(res.body).toHaveProperty("errors.default");

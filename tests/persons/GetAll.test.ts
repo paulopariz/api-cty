@@ -18,15 +18,15 @@ describe("Persons - GetAll", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  let city: number | undefined = undefined;
+  let job: number | undefined = undefined;
 
   beforeAll(async () => {
-    const cityCreated = await testServer
-      .post("/cities")
+    const jobCreated = await testServer
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({ name: "Teste7" });
 
-    city = cityCreated.body.id;
+    job = jobCreated.body.id;
   });
 
   it("Tenta buscar os registros sem o token de autenticação", async () => {
@@ -41,7 +41,7 @@ describe("Persons - GetAll", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulogetall@get.com",
         name: "Paulo all",
       });

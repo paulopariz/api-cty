@@ -7,12 +7,12 @@ export const updateById = async (
   person: Omit<IPerson, "id">
 ): Promise<IPerson | Error> => {
   try {
-    const [{ count }] = await Knex(ETableNames.cidade)
-      .where("id", "=", person.city)
+    const [{ count }] = await Knex(ETableNames.job)
+      .where("id", "=", person.job)
       .count<[{ count: number }]>("* as count");
 
     if (count === 0) {
-      return new Error("Cidade não encontrada");
+      return new Error("Job não encontrada");
     }
 
     const result = await Knex(ETableNames.pessoa)

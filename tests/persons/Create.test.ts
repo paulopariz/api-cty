@@ -18,24 +18,21 @@ describe("Persons - Create", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  let city: number | undefined = undefined;
+  let job: number | undefined = undefined;
   beforeAll(async () => {
-    const cityCreated = await testServer
-      .post("/cities")
+    const jobCreated = await testServer
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({ name: "Teste12" });
 
-    console.log(
-      "cityCreatedcityCreatedcityCreatedcityCreated",
-      cityCreated.body
-    );
+    console.log("jobCreatedjobCreatedjobCreatedjobCreated", jobCreated.body);
 
-    city = cityCreated.body.id;
+    job = jobCreated.body.id;
   });
 
   it("Tenta criar registro sem o token de autenticação", async () => {
     const res = await testServer.post("/persons").send({
-      city,
+      job,
       email: "paulocreate@create.com",
       name: "Ceni",
     });
@@ -49,7 +46,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulocreate@create.com",
         name: "Ceni",
       });
@@ -63,7 +60,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulocreate2@create.com",
         name: "Ceni 01",
       });
@@ -77,7 +74,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "pauloduplicate@duplicate.com",
         name: "Ceni",
       });
@@ -89,7 +86,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "pauloduplicate@duplicate.com",
         name: "Ceni",
       });
@@ -103,7 +100,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulo777@teste.com",
         name: "Pa",
       });
@@ -117,7 +114,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulo777@teste.com",
       });
 
@@ -130,7 +127,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         name: "Paulo",
       });
 
@@ -143,7 +140,7 @@ describe("Persons - Create", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         name: "Paulo",
         email: "paulo teste.com",
       });
@@ -152,7 +149,7 @@ describe("Persons - Create", () => {
     expect(res.body).toHaveProperty("errors.body.email");
   });
 
-  it("Tenta criar registro sem o city(id)", async () => {
+  it("Tenta criar registro sem o job(id)", async () => {
     const res = await testServer
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
@@ -162,21 +159,21 @@ describe("Persons - Create", () => {
       });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(res.body).toHaveProperty("errors.body.city");
+    expect(res.body).toHaveProperty("errors.body.job");
   });
 
-  it("Tenta criar registro sem o city(id) invalido", async () => {
+  it("Tenta criar registro sem o job(id) invalido", async () => {
     const res = await testServer
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city: "teste",
+        job: "teste",
         name: "Paulo",
         email: "paulo@teste.com",
       });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(res.body).toHaveProperty("errors.body.city");
+    expect(res.body).toHaveProperty("errors.body.job");
   });
 
   it("Tenta criar registro sem nenhuma propriedade", async () => {
@@ -187,7 +184,7 @@ describe("Persons - Create", () => {
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.email");
-    expect(res.body).toHaveProperty("errors.body.city");
+    expect(res.body).toHaveProperty("errors.body.job");
     expect(res.body).toHaveProperty("errors.body.name");
   });
 });

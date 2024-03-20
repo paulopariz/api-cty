@@ -1,19 +1,19 @@
-import { ETableNames } from "./../ETableName";
+import { ETableNames } from "../ETableName";
 import { Knex } from "knex";
 
 export const seed = async (knex: Knex) => {
-  const [{ count }] = await knex(ETableNames.cidade).count<[{ count: number }]>(
+  const [{ count }] = await knex(ETableNames.job).count<[{ count: number }]>(
     "* as count"
   );
   if (!Number.isInteger(count) || Number(count) > 0) return;
 
-  const cidadesToInsert = citiesAll.map((nameCity) => ({
-    name: nameCity,
+  const jobsToInsert = jobsAll.map((nameJob) => ({
+    name: nameJob,
   }));
-  await knex(ETableNames.cidade).insert(cidadesToInsert);
+  await knex(ETableNames.job).insert(jobsToInsert);
 };
 
-const citiesAll = [
+const jobsAll = [
   "Rondon",
   "São Paulo",
   "Belo Horizonte",

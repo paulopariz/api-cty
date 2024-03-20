@@ -1,11 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { testServer } from "./../jest.setup";
 
-describe("Cities - GetAll", () => {
+describe("Jobs - GetById", () => {
   let accessToken = "";
 
   beforeAll(async () => {
-    const email = "getAll-cidades@gmail.com";
+    const email = "getById-jobs@gmail.com";
 
     await testServer
       .post("/signup ")
@@ -18,16 +18,16 @@ describe("Cities - GetAll", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  it("Tenta buscar os registros sem o token de autenticação", async () => {
-    const res = await testServer.get("/cities").send();
+  it("Tenta buscar o registro por id sem o token de autenticação", async () => {
+    const res = await testServer.get(`/jobs/1`).send();
 
     expect(res.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
     expect(res.body).toHaveProperty("errors.default");
   });
 
-  it("Busca todos os registros", async () => {
+  it("Busca registro por id", async () => {
     const res = await testServer
-      .post("/cities")
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         name: "São Paulo",
@@ -35,13 +35,22 @@ describe("Cities - GetAll", () => {
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
 
-    const resGet = await testServer
-      .get("/cities")
+    const resget = await testServer
+      .get(`/jobs/1`)
       .set({ Authorization: `Bearer ${accessToken}` })
       .send();
 
-    expect(Number(resGet.headers["x-total-count"])).toBeGreaterThan(0);
-    expect(resGet.statusCode).toEqual(StatusCodes.OK);
-    expect(resGet.body.length).toBeGreaterThan(0);
+    expect(resget.statusCode).toEqual(StatusCodes.OK);
+    expect(resget.body).toHaveProperty("name");
+  });
+
+  it("Tenta buscar um registro que não existe", async () => {
+    const res = await testServer
+      .get("/jobs/9423042304")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send();
+
+    expect(res.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+    expect(res.body).toHaveProperty("errors.default");
   });
 });

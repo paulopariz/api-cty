@@ -18,15 +18,15 @@ describe("Persons - GetById", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  let city: number | undefined = undefined;
+  let job: number | undefined = undefined;
 
   beforeAll(async () => {
-    const cityCreated = await testServer
-      .post("/cities")
+    const jobCreated = await testServer
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({ name: "Teste2" });
 
-    city = cityCreated.body.id;
+    job = jobCreated.body.id;
   });
 
   it("Tenta buscar registro por id sem o token de acesso", async () => {
@@ -41,7 +41,7 @@ describe("Persons - GetById", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulogetbyid@get.com",
         name: "Paulo getbyid",
       });

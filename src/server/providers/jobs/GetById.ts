@@ -1,10 +1,10 @@
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
-import { ICity } from "../../database/models";
+import { IJob } from "../../database/models";
 
-export const getById = async (id: number): Promise<ICity | Error> => {
+export const getById = async (id: number): Promise<IJob | Error> => {
   try {
-    const result = await Knex(ETableNames.cidade)
+    const result = await Knex(ETableNames.job)
       .select("*")
       .where("id", "=", id)
       .first();

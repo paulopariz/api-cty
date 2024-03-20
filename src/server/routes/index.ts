@@ -1,17 +1,17 @@
 import { Router } from "express";
 
-import { CitiesController, UsersController } from "./../controllers";
+import { JobsController, UsersController } from "../controllers";
 import { PersonsController } from "../controllers/persons";
 import { ensureAuthenticated } from "../shared/middlewares";
 
 const router = Router();
 
-//cidades
-router.get("/cities", ensureAuthenticated, CitiesController.getAllValidation, CitiesController.getAll); // prettier-ignore
-router.post("/cities", ensureAuthenticated, CitiesController.createValidation, CitiesController.create); // prettier-ignore
-router.get("/cities/:id", ensureAuthenticated, CitiesController.getByIdValidation, CitiesController.getById); // prettier-ignore
-router.put("/cities/:id", ensureAuthenticated, CitiesController.updateByIdValidation, CitiesController.updateById); // prettier-ignore
-router.delete("/cities/:id", ensureAuthenticated, CitiesController.deleteByIdValidation, CitiesController.deleteById); // prettier-ignore
+//jobs
+router.get("/jobs", ensureAuthenticated, JobsController.getAllValidation, JobsController.getAll); // prettier-ignore
+router.post("/jobs", ensureAuthenticated, JobsController.createValidation, JobsController.create); // prettier-ignore
+router.get("/jobs/:id", ensureAuthenticated, JobsController.getByIdValidation, JobsController.getById); // prettier-ignore
+router.put("/jobs/:id", ensureAuthenticated, JobsController.updateByIdValidation, JobsController.updateById); // prettier-ignore
+router.delete("/jobs/:id", ensureAuthenticated, JobsController.deleteByIdValidation, JobsController.deleteById); // prettier-ignore
 
 //pessoas
 router.get("/persons", ensureAuthenticated, PersonsController.getAllValidation, PersonsController.getAll); // prettier-ignore

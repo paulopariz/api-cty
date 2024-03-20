@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
-import { CitiesProvider } from "../../providers/cities";
+import { JobsProvider } from "../../providers/jobs";
 
 interface IQueryProps {
   id?: number;
@@ -26,14 +26,14 @@ export const getAll = async (
   req: Request<{}, {}, {}, IQueryProps>,
   res: Response
 ) => {
-  const result = await CitiesProvider.getAll(
+  const result = await JobsProvider.getAll(
     req.query.page || 1,
     req.query.limit || 10,
     req.query.filter || "",
     Number(req.query.id || 0)
   );
 
-  const count = await CitiesProvider.count(req.query.filter);
+  const count = await JobsProvider.count(req.query.filter);
 
   console.log("ID", req.headers.idUser);
 

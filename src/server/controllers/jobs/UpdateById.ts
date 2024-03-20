@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
-import { ICity } from "../../database/models";
-import { CitiesProvider } from "../../providers/cities";
+import { IJob } from "../../database/models";
+import { JobsProvider } from "../../providers/jobs";
 
 interface IParamProps {
   id?: number;
 }
 
-interface IBodyProps extends Omit<ICity, "id"> {}
+interface IBodyProps extends Omit<IJob, "id"> {}
 
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
@@ -37,7 +37,7 @@ export const updateById = async (
     });
   }
 
-  const result = await CitiesProvider.updateById(req.params.id, req.body);
+  const result = await JobsProvider.updateById(req.params.id, req.body);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

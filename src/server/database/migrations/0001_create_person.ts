@@ -8,11 +8,11 @@ export async function up(knex: Knex) {
       table.string("name").index().notNullable();
       table.string("email").unique().notNullable();
       table
-        .bigInteger("city")
+        .bigInteger("job")
         .index()
         .notNullable()
         .references("id")
-        .inTable(ETableNames.cidade)
+        .inTable(ETableNames.job)
         .onUpdate("CASCADE")
         .onDelete("RESTRICT");
 

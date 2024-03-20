@@ -1,11 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { testServer } from "./../jest.setup";
 
-describe("Cities - Create", () => {
+describe("Jobs - Create", () => {
   let accessToken = "";
 
   beforeAll(async () => {
-    const email = "create-cidades@gmail.com";
+    const email = "create-jobs@gmail.com";
 
     await testServer
       .post("/signup ")
@@ -19,7 +19,7 @@ describe("Cities - Create", () => {
   });
 
   it("Tenta criar registro sem o token de acesso", async () => {
-    const res1 = await testServer.post("/cities").send({
+    const res1 = await testServer.post("/jobs").send({
       name: "São Paulo",
     });
 
@@ -29,7 +29,7 @@ describe("Cities - Create", () => {
 
   it("Cria registro", async () => {
     const res1 = await testServer
-      .post("/cities")
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         name: "São Paulo",
@@ -41,7 +41,7 @@ describe("Cities - Create", () => {
 
   it("Quantidade de caracteres invalidos", async () => {
     const res1 = await testServer
-      .post("/cities")
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         name: "Sã",

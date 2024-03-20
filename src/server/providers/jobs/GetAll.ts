@@ -1,15 +1,15 @@
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
-import { ICity } from "../../database/models";
+import { IJob } from "../../database/models";
 
 export const getAll = async (
   page: number,
   limit: number,
   filter: string,
   id = 0
-): Promise<ICity[] | Error> => {
+): Promise<IJob[] | Error> => {
   try {
-    const result = await Knex(ETableNames.cidade)
+    const result = await Knex(ETableNames.job)
       .select("*")
       .where("id", Number(id))
       .orWhere("name", "like", `%${filter}%`)
@@ -17,7 +17,7 @@ export const getAll = async (
       .limit(limit);
 
     if (id > 0 && result.every((item) => item.id !== id)) {
-      const resultById = await Knex(ETableNames.cidade)
+      const resultById = await Knex(ETableNames.job)
         .select("*")
         .where("id", "=", id)
         .first();

@@ -19,19 +19,19 @@ describe("Persons - UpdateById", () => {
     accessToken = signIn.body.accessToken;
   });
 
-  let city: number | undefined = undefined;
+  let job: number | undefined = undefined;
   beforeAll(async () => {
-    const resCity = await testServer
-      .post("/cities")
+    const resJob = await testServer
+      .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({ name: "Teste" });
 
-    city = resCity.body.id;
+    job = resJob.body.id;
   });
 
   it("Tenta atualizar um registro sem o token de autenticação", async () => {
     const res = await testServer.put(`/persons/1`).send({
-      city,
+      job,
       name: "Paulo ppariz",
       email: "parixpais@gmail.com",
     });
@@ -44,7 +44,7 @@ describe("Persons - UpdateById", () => {
       .post("/persons")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "paulocrup@createup.com",
         name: "Ceni",
       });
@@ -55,7 +55,7 @@ describe("Persons - UpdateById", () => {
       .put(`/persons/${res1.body.id}`)
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         name: "Paulo ppariz",
         email: "parixpais@gmail.com",
       });
@@ -66,7 +66,7 @@ describe("Persons - UpdateById", () => {
       .put("/persons/99999")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({
-        city,
+        job,
         email: "juca@gmail.com",
         name: "Paulo ppariz",
       });
