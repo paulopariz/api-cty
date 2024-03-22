@@ -10,12 +10,12 @@ export async function up(knex: Knex): Promise<void> {
       table
         .enum("urgency_level", ["low", "average", "urgent"])
         .defaultTo("low");
-      table.specificType("languages", "TEXT ARRAY").notNullable();
+      table.jsonb("languages").notNullable();
       table.enum("location_type", ["company", "remote"]).notNullable();
       table.string("city").nullable();
       table.decimal("min_salary", 8, 2).notNullable();
       table.decimal("max_salary", 8, 2).nullable();
-      table.specificType("labels", "TEXT ARRAY").nullable();
+      table.jsonb("labels").nullable();
       table.string("contact").notNullable();
       table
         .enum("status", ["opened", "closed"])

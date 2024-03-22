@@ -12,7 +12,7 @@ export const getAll = async (
     const result = await Knex(ETableNames.job)
       .select("*")
       .where("id", Number(id))
-      .orWhere("name", "like", `%${filter}%`)
+      .orWhere("title", "like", `%${filter}%`)
       .offset((page - 1) * limit)
       .limit(limit);
 

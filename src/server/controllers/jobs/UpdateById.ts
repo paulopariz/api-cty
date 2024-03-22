@@ -20,12 +20,12 @@ export const updateByIdValidation = validation((getSchema) => ({
         .string()
         .nullable()
         .oneOf(["low", "average", "urgent"]),
-      languages: yup.array().of(yup.string().required()).required(),
+      languages: yup.string().required(),
       location_type: yup.string().required().oneOf(["company", "remote"]),
       city: yup.string().nullable(),
       min_salary: yup.number().required().positive(),
       max_salary: yup.number().positive().nullable(),
-      labels: yup.array().of(yup.string().required()).required(),
+      labels: yup.string().required(),
       contact: yup.string().required(),
       status: yup.string().required().oneOf(["opened", "closed"]),
     })
