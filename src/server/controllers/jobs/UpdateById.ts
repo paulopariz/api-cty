@@ -14,7 +14,20 @@ interface IBodyProps extends Omit<IJob, "id"> {}
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
     yup.object().shape({
-      name: yup.string().required().min(3),
+      title: yup.string().required().min(5).max(70),
+      description: yup.string().required().min(20).max(350),
+      urgency_level: yup
+        .string()
+        .nullable()
+        .oneOf(["low", "average", "urgent"]),
+      languages: yup.array().of(yup.string().required()).required(),
+      location_type: yup.string().required().oneOf(["company", "remote"]),
+      city: yup.string().nullable(),
+      min_salary: yup.number().required().positive(),
+      max_salary: yup.number().positive().nullable(),
+      labels: yup.array().of(yup.string().required()).required(),
+      contact: yup.string().required(),
+      status: yup.string().required().oneOf(["opened", "closed"]),
     })
   ),
 

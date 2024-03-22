@@ -6,11 +6,11 @@ export async function up(knex: Knex): Promise<void> {
     .createTable(ETableNames.job, (table) => {
       table.bigIncrements("id").primary().index();
       table.string("title", 70).checkLength("<=", 70).notNullable().index();
-      table.string("description", 350).checkLength("<=", 70).notNullable();
+      table.string("description", 350).checkLength("<=", 350).notNullable();
       table
         .enum("urgency_level", ["low", "average", "urgent"])
         .defaultTo("low");
-      table.string("languages").notNullable();
+      table.specificType("languages", "TEXT ARRAY").notNullable();
       table.enum("location_type", ["company", "remote"]).notNullable();
       table.string("city").nullable();
       table.decimal("min_salary", 8, 2).notNullable();
