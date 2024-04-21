@@ -22,10 +22,7 @@ export const getAllValidation = validation((getSchema) => ({
   ),
 }));
 
-export const getAll = async (
-  req: Request<{}, {}, {}, IQueryProps>,
-  res: Response
-) => {
+export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
   const result = await JobsProvider.getAll(
     req.query.page || 1,
     req.query.limit || 10,
@@ -34,8 +31,6 @@ export const getAll = async (
   );
 
   const count = await JobsProvider.count(req.query.filter);
-
-  console.log("ID", req.headers.idUser);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

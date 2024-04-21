@@ -7,13 +7,9 @@ describe("Persons - Create", () => {
   beforeAll(async () => {
     const email = "create-person@gmail.com";
 
-    await testServer
-      .post("/signup ")
-      .send({ name: "Teste", email, password: "123456" });
+    await testServer.post("/signup ").send({ name: "Teste", email, password: "123456" });
 
-    const signIn = await testServer
-      .post("/signin")
-      .send({ email, password: "123456" });
+    const signIn = await testServer.post("/signin").send({ email, password: "123456" });
 
     accessToken = signIn.body.accessToken;
   });
@@ -24,8 +20,6 @@ describe("Persons - Create", () => {
       .post("/jobs")
       .set({ Authorization: `Bearer ${accessToken}` })
       .send({ name: "Teste12" });
-
-    console.log("jobCreatedjobCreatedjobCreatedjobCreated", jobCreated.body);
 
     job = jobCreated.body.id;
   });
