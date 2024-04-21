@@ -20,7 +20,7 @@ export const createValidation = validation((getSchema) => ({
         then: (schema) => schema.required(),
         otherwise: (schema) => schema.notRequired(),
       }),
-      min_salary: yup.number().required().positive(),
+      min_salary: yup.number().positive().nullable(),
       max_salary: yup.number().positive().nullable(),
       labels: yup.string().required(),
       contact: yup.string().required(),
@@ -42,6 +42,8 @@ export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
 
   const transformResult = {
     ...req.body,
+    min_salary: req.body.min_salary ? req.body.min_salary : undefined,
+    max_salary: req.body.max_salary ? req.body.max_salary : undefined,
     city: req.body.location_type === "company" ? req.body.city : undefined,
   };
 

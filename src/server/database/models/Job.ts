@@ -6,7 +6,7 @@ export interface IJob {
   languages: string;
   location_type: string;
   city?: string | null;
-  min_salary: number;
+  min_salary?: number | null;
   max_salary?: number | null;
   labels: string;
   contact: string;
