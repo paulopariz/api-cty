@@ -1,10 +1,14 @@
 import { Router } from "express";
 
-import { JobsController, UsersController } from "../controllers";
+import { JobsController, UsersController, FavoritesController } from "../controllers";
 import { PersonsController } from "../controllers/persons";
 import { ensureAuthenticated } from "../shared/middlewares";
 
 const router = Router();
+
+//user
+router.post("/signin", UsersController.signInValidation, UsersController.signIn); // prettier-ignore
+router.post("/signup", UsersController.signUpValidation, UsersController.signUp); // prettier-ignore
 
 //jobs
 router.get("/jobs", ensureAuthenticated, JobsController.getAllValidation, JobsController.getAll); // prettier-ignore
@@ -20,8 +24,7 @@ router.get("/persons/:id", ensureAuthenticated, PersonsController.getByIdValidat
 router.put("/persons/:id", ensureAuthenticated, PersonsController.updateByIdValidation, PersonsController.updateById); // prettier-ignore
 router.delete("/persons/:id", ensureAuthenticated, PersonsController.deleteByIdValidation, PersonsController.deleteById); // prettier-ignore
 
-//user
-router.post("/signin", UsersController.signInValidation, UsersController.signIn); // prettier-ignore
-router.post("/signup", UsersController.signUpValidation, UsersController.signUp); // prettier-ignore
+//favorites
+router.post("/favorites", ensureAuthenticated, FavoritesController.createValidation, FavoritesController.create); // prettier-ignore
 
 export { router };
