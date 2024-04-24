@@ -14,10 +14,11 @@ export const seed = async (knex: Knex) => {
     city: null,
     min_salary: null,
     max_salary: null,
-    labels: "N/A",
+    labels: JSON.stringify([]), // Assegura que é um JSON válido
     contact: "email@example.com",
     status: "ativo",
   }));
+
   await knex(ETableNames.job).insert(jobsToInsert);
 };
 
