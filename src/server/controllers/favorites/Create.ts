@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { IFavorite } from "../../database/models";
 import { FavoritesProvider } from "../../providers/favorites";
 
-interface IBodyProps extends Omit<IFavorite, "id"> {}
+interface IBodyProps extends Omit<IFavorite, "id" | "job"> {}
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(

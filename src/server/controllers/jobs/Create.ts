@@ -12,7 +12,10 @@ export const createValidation = validation((getSchema) => ({
     yup.object().shape({
       title: yup.string().required().min(5).max(70),
       description: yup.string().required().min(20).max(350),
-      urgency_level: yup.string().nullable().oneOf(["low", "average", "urgent"]),
+      urgency_level: yup
+        .string()
+        .nullable()
+        .oneOf(["low", "average", "urgent"] as const),
       languages: yup.string().required(),
       location_type: yup.string().required().oneOf(["company", "remote"]),
       city: yup.string().when("location_type", {
@@ -24,7 +27,10 @@ export const createValidation = validation((getSchema) => ({
       max_salary: yup.number().positive().nullable(),
       labels: yup.string().required(),
       contact: yup.string().required(),
-      status: yup.string().required().oneOf(["opened", "closed"]),
+      status: yup
+        .string()
+        .required()
+        .oneOf(["opened", "closed"] as const),
     })
   ),
 }));

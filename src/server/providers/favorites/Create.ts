@@ -2,7 +2,12 @@ import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
 import { IFavorite, IJob } from "../../database/models";
 
-export const create = async (fav: Omit<IFavorite, "id">): Promise<IJob | Error> => {
+interface ICreateResponse {
+  id: number;
+  job: IJob;
+}
+
+export const create = async (fav: Omit<IFavorite, "id">): Promise<ICreateResponse | Error> => {
   try {
     const [result] = await Knex(ETableNames.favorites).insert(fav).returning("*");
 
@@ -10,7 +15,10 @@ export const create = async (fav: Omit<IFavorite, "id">): Promise<IJob | Error> 
       const job: IJob | undefined = await Knex(ETableNames.job).where("id", result.job_id).first();
 
       if (job) {
-        return job;
+        return {
+          id: result.id,
+          job: job,
+        };
       }
     }
 

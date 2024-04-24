@@ -44,5 +44,6 @@ export const production: Knex.Config = {
     database: process.env.DB_NAME,
     port: Number(process.env.DB_PORT || 5432),
     ssl: { rejectUnauthorized: false },
+    timezone: "America/Sao_Paulo",
   },
 };
