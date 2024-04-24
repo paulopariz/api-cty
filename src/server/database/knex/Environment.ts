@@ -29,14 +29,6 @@ export const test: Knex.Config = {
 
 export const production: Knex.Config = {
   client: "pg",
-  migrations: {
-    directory: path.resolve(__dirname, "..", "migrations"),
-  },
-
-  seeds: {
-    directory: path.resolve(__dirname, "..", "seeds"),
-  },
-
   connection: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -45,5 +37,12 @@ export const production: Knex.Config = {
     port: Number(process.env.DB_PORT || 5432),
     ssl: { rejectUnauthorized: false },
     timezone: "America/Sao_Paulo",
+  },
+  pool: { min: 2, max: 10 }, // Ajuste esses valores conforme necessário
+  migrations: {
+    directory: path.resolve(__dirname, "..", "migrations"),
+  },
+  seeds: {
+    directory: path.resolve(__dirname, "..", "seeds"),
   },
 };
