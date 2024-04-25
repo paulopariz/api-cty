@@ -9,10 +9,10 @@ export const seed = async (knex: Knex) => {
     title: "Vaga para desenvolvedor Nodejs",
     description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     urgency_level: "low",
-    languages: "['js', 'node', 'vue']",
+    languages: JSON.stringify(["js", "node", "vue"]),
     location_type: "remote",
     city: "sdf",
-    labels: "['Jùnior', 'Node', 'Back-End']",
+    labels: JSON.stringify(["Jùnior", "Node", "Back-End"]),
     contact: "4499941525512",
     status: "opened",
   };
