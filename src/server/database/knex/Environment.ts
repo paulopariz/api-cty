@@ -37,8 +37,8 @@ export const production: Knex.Config = {
     port: Number(process.env.DB_PORT || 5432),
     ssl: { rejectUnauthorized: false },
     timezone: "America/Sao_Paulo",
+    pool: { min: 0, max: 10 },
   },
-  pool: { min: 2, max: 10 }, // Ajuste esses valores conforme necessário
   migrations: {
     directory: path.resolve(__dirname, "..", "migrations"),
   },
