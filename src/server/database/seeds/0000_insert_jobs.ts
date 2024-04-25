@@ -9,12 +9,12 @@ export const seed = async (knex: Knex) => {
     title: jobName,
     description: "Descrição padrão para o job.",
     urgency_level: "normal",
-    languages: "Português",
+    languages: JSON.stringify(["Português"]), // Corrigindo para ser JSON válido
     location_type: "remoto",
     city: null,
     min_salary: null,
     max_salary: null,
-    labels: JSON.stringify([]), // Assegura que é um JSON válido
+    labels: JSON.stringify(["N/A"]), // Confirmar JSON válido
     contact: "email@example.com",
     status: "ativo",
   }));
