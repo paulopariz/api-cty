@@ -49,5 +49,16 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
   res.setHeader("access-control-expose-headers", "x-total-count");
   res.setHeader("x-total-count", count);
 
-  return res.status(StatusCodes.OK).json(result);
+  const transformResult = result.map((job) => {
+    const labels = JSON.parse(job.labels.replace(/'/g, '"'));
+    const languages = JSON.parse(job.languages.replace(/'/g, '"'));
+
+    return {
+      ...job,
+      labels,
+      languages,
+    };
+  });
+
+  return res.status(StatusCodes.OK).json(transformResult);
 };

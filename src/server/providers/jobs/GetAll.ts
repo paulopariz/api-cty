@@ -17,10 +17,7 @@ export const getAll = async (
       .limit(limit);
 
     if (id > 0 && result.every((item) => item.id !== id)) {
-      const resultById = await Knex(ETableNames.job)
-        .select("*")
-        .where("id", "=", id)
-        .first();
+      const resultById = await Knex(ETableNames.job).select("*").where("id", "=", id).first();
 
       if (resultById) {
         return [...result, resultById];
