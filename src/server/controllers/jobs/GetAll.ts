@@ -50,8 +50,13 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
   res.setHeader("x-total-count", count);
 
   const transformResult = result.map((job) => {
-    const labels = JSON.parse(job.labels.replace(/'/g, '"'));
-    const languages = JSON.parse(job.languages.replace(/'/g, '"'));
+    let labels;
+    if (job?.labels) {
+      labels = JSON.parse(job?.labels.replace(/'/g, '"'));
+    } else {
+      labels = [];
+    }
+    const languages = JSON.parse(job?.languages.replace(/'/g, '"'));
 
     return {
       ...job,
