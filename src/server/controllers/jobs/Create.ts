@@ -21,7 +21,7 @@ export const createValidation = validation((getSchema) => ({
       city: yup.string().when("location_type", {
         is: (val: string) => val === "company",
         then: (schema) => schema.required(),
-        otherwise: (schema) => schema.notRequired(),
+        otherwise: (schema) => schema.nullable().oneOf([null, undefined]),
       }),
       min_salary: yup.number().positive().nullable(),
       max_salary: yup.number().positive().nullable(),
