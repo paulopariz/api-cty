@@ -6,13 +6,13 @@ export const seed = async (knex: Knex) => {
   if (!Number.isInteger(count) || Number(count) > 0) return;
 
   const jobsToInsert = {
-    title: "Vaga para desenvolvedor Nodejs",
-    description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    urgency_level: "low",
-    languages: JSON.stringify(["js", "node", "vue"]),
+    title: "Desenvolvedor Fullstack PHP Laravel",
+    description:
+      "Buscamos Desenvolvedor Fullstack com forte experiência em PHP e Laravel. Conhecimentos em JavaScript, Vue.js e bases de dados são essenciais. Procuramos profissionais que possam gerenciar projetos de ponta a ponta, com foco em inovação e soluções escaláveis.",
+    urgency_level: "urgent",
+    languages: "['php', 'laravel', 'javascript', 'vue']",
     location_type: "remote",
-    city: "sdf",
-    labels: JSON.stringify(["Jùnior", "Node", "Back-End"]),
+    labels: "['Fullstack', 'PHP', 'Laravel', 'JavaScript']",
     contact: "4499941525512",
     status: "opened",
   };
