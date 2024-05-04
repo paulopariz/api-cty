@@ -7,12 +7,10 @@ interface IJwtData {
 const sign = (data: IJwtData): string | "JWT_SECRETE_NOT_FOUND" => {
   if (!process.env.JWT_SECRET) return "JWT_SECRETE_NOT_FOUND";
 
-  return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "24h" });
+  return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "72h" });
 };
 
-const verify = (
-  token: string
-): IJwtData | "JWT_SECRETE_NOT_FOUND" | "INVALID_TOKEN" => {
+const verify = (token: string): IJwtData | "JWT_SECRETE_NOT_FOUND" | "INVALID_TOKEN" => {
   if (!process.env.JWT_SECRET) return "JWT_SECRETE_NOT_FOUND";
 
   try {

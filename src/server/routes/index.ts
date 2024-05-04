@@ -9,6 +9,7 @@ const router = Router();
 //user
 router.post("/signin", UsersController.signInValidation, UsersController.signIn); // prettier-ignore
 router.post("/signup", UsersController.signUpValidation, UsersController.signUp); // prettier-ignore
+router.get("/me", ensureAuthenticated, UsersController.getMyUser); // prettier-ignore
 
 //jobs
 router.get("/jobs", ensureAuthenticated, JobsController.getAllValidation, JobsController.getAll); // prettier-ignore

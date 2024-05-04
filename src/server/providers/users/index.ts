@@ -1,7 +1,9 @@
-import * as GetByEmail from "./GetByEmail";
+import * as getByEmail from "./GetByEmail";
+import * as getByUser from "./GetByUser";
 import * as create from "./Create";
 
 export const UsersProvider = {
-  ...GetByEmail,
+  ...getByEmail,
+  ...getByUser,
   ...create,
 };
