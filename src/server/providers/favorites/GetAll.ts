@@ -10,7 +10,7 @@ export const getAll = async (
   try {
     const result = await Knex(ETableNames.favorites)
       .join(ETableNames.job, `${ETableNames.favorites}.job_id`, `${ETableNames.job}.id`)
-      .where(`${ETableNames.favorites}.user_id`, 5)
+      .where(`${ETableNames.favorites}.user_id`, 2)
       .select(`${ETableNames.favorites}.id as favoriteId`, `${ETableNames.job}.*`)
       .offset((page - 1) * limit)
       .limit(limit);

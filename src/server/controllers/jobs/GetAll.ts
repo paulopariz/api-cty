@@ -52,11 +52,22 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
   const transformResult = result.data.map((job) => {
     let labels;
     if (job?.labels) {
-      labels = JSON.parse(job?.labels.replace(/'/g, '"'));
+      try {
+        labels = JSON.parse(job?.labels.replace(/'/g, '"'));
+      } catch (e) {
+        console.error("Error parsing labels:", e);
+        labels = [];
+      }
     } else {
       labels = [];
     }
-    const languages = JSON.parse(job?.languages.replace(/'/g, '"'));
+    let languages;
+    try {
+      languages = JSON.parse(job?.languages.replace(/'/g, '"'));
+    } catch (e) {
+      console.error("Error parsing languages:", e);
+      languages = [];
+    }
 
     return {
       ...job,

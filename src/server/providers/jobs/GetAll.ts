@@ -3,6 +3,7 @@ import { Knex } from "../../database/knex";
 import { IJob } from "../../database/models";
 
 import { IPaginationResponse, attachPaginate } from "../../shared/services";
+attachPaginate();
 
 export const getAll = async (
   page: number,
@@ -11,8 +12,6 @@ export const getAll = async (
   id = 0
 ): Promise<IPaginationResponse<IJob> | Error> => {
   try {
-    attachPaginate();
-
     const result = await Knex(ETableNames.job)
       .select("*")
       .where("id", Number(id))
