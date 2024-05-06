@@ -10,9 +10,9 @@ export const seed = async (knex: Knex) => {
     description:
       "Buscamos Desenvolvedor Fullstack com forte experiência em PHP e Laravel. Conhecimentos em JavaScript, Vue.js e bases de dados são essenciais. Procuramos profissionais que possam gerenciar projetos de ponta a ponta, com foco em inovação e soluções escaláveis.",
     urgency_level: "urgent",
-    languages: JSON.stringify(["php", "laravel", "javascript", "vue"]),
+    languages: "['php', 'laravel', 'javascript', 'vue']",
     location_type: "remote",
-    labels: JSON.stringify(["Fullstack", "PHP", "Laravel", "JavaScript"]),
+    labels: "['Fullstack', 'PHP', 'Laravel', 'JavaScript']",
     contact: "4499941525512",
     status: "opened",
   };
