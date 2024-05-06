@@ -23,12 +23,9 @@ export const getAllValidation = validation((getSchema) => ({
 }));
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
-  const result = await FavoritesProvider.getAll(
-    req.query.page || 1,
-    req.query.limit || 10
-    // req.query.filter || "",
-  );
+  const userId = Number(req.headers["idUser"]);
 
+  const result = await FavoritesProvider.getAll(req.query.page || 1, req.query.limit || 10, userId);
   const count = await FavoritesProvider.count();
 
   if (result instanceof Error) {

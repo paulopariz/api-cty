@@ -4,13 +4,14 @@ import { IFavorite } from "../../database/models";
 
 export const getAll = async (
   page: number,
-  limit: number
+  limit: number,
+  idUser: number
   //   filter: string,
 ): Promise<IFavorite[] | Error> => {
   try {
     const result = await Knex(ETableNames.favorites)
       .join(ETableNames.job, `${ETableNames.favorites}.job_id`, `${ETableNames.job}.id`)
-      .where(`${ETableNames.favorites}.user_id`, 2)
+      .where(`${ETableNames.favorites}.user_id`, idUser)
       .select(`${ETableNames.favorites}.id as favoriteId`, `${ETableNames.job}.*`)
       .offset((page - 1) * limit)
       .limit(limit);
