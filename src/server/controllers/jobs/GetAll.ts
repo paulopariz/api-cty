@@ -51,12 +51,11 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
 
   const transformResult = result.data.map((job) => {
     let labels;
+
     if (job?.labels && typeof job.labels === "string") {
       try {
-        const jsonString = job.labels.replace(/'/g, '"');
-        labels = JSON.parse(jsonString);
+        labels = JSON.parse(job.labels.replace(/'/g, '"'));
       } catch (e) {
-        console.error("Error parsing labels:", e);
         labels = [];
       }
     } else {
@@ -66,16 +65,13 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
     let languages;
     if (job?.languages && typeof job.languages === "string") {
       try {
-        const jsonString2 = job.languages.replace(/'/g, '"');
-        languages = JSON.parse(jsonString2);
+        languages = JSON.parse(job.languages.replace(/'/g, '"'));
       } catch (e) {
         languages = [];
       }
     } else {
       languages = [];
     }
-
-    console.log(labels);
 
     return {
       ...job,

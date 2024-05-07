@@ -20,7 +20,12 @@ export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
   const result = await FavoritesProvider.create(req.body);
 
   if (result instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    let statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+    if (result.message === "Already in your favorites") {
+      statusCode = StatusCodes.CONFLICT;
+    }
+
+    return res.status(statusCode).json({
       errors: {
         default: result.message,
       },
