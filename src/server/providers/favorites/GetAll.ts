@@ -1,30 +1,42 @@
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
 import { IFavorite } from "../../database/models";
+import { IPaginationResponse } from "../../shared/services";
 
 export const getAll = async (
   page: number,
   limit: number,
   idUser: number
-  //   filter: string,
-): Promise<IFavorite[] | Error> => {
+): Promise<IPaginationResponse<IFavorite> | Error> => {
   try {
     const result = await Knex(ETableNames.favorites)
       .join(ETableNames.job, `${ETableNames.favorites}.job_id`, `${ETableNames.job}.id`)
       .where(`${ETableNames.favorites}.user_id`, idUser)
       .select(`${ETableNames.favorites}.id as favoriteId`, `${ETableNames.job}.*`)
-      .offset((page - 1) * limit)
-      .limit(limit);
+      .paginate({
+        perPage: limit,
+        currentPage: page,
+        isLengthAware: true,
+      });
 
-    const favorites = result.map((row) => ({
-      id: row.favoriteId,
-      job: { ...row },
+    const favorite = result.data.map((job) => ({
+      id: 1,
+      job: {
+        ...job,
+      },
     }));
 
-    return favorites;
-  } catch (error) {
-    console.error(error);
+    const response: IPaginationResponse<IFavorite> = {
+      current_page: result.pagination.currentPage,
+      to: result.pagination.to,
+      data: favorite,
+      total: result.pagination.total,
+      per_page: result.pagination.perPage,
+    };
 
-    return new Error("Erro ao buscar registros");
+    return response;
+  } catch (error) {
+    console.error("Erro ao buscar registros:", error);
+    throw new Error("Erro ao buscar registros");
   }
 };
