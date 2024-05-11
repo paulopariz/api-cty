@@ -19,17 +19,32 @@ export const getAll = async (
         isLengthAware: true,
       });
 
-    const favorite = result.data.map((job) => ({
-      id: 1,
-      job: {
-        ...job,
-      },
-    }));
+    const transformResult = result.data.map((fav) => {
+      const parseArrayString = (string: string) => {
+        try {
+          return JSON.parse(string.replace(/'/g, '"'));
+        } catch (e) {
+          return [];
+        }
+      };
+
+      const labels = parseArrayString(fav?.labels);
+      const languages = parseArrayString(fav?.languages);
+
+      return {
+        id: 1,
+        job: {
+          ...fav,
+          labels,
+          languages,
+        },
+      };
+    });
 
     const response: IPaginationResponse<IFavorite> = {
       current_page: result.pagination.currentPage,
       to: result.pagination.to,
-      data: favorite,
+      data: transformResult,
       total: result.pagination.total,
       per_page: result.pagination.perPage,
     };
