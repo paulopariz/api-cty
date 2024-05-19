@@ -1,11 +1,16 @@
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
 
-export const count = async (): Promise<number | Error> => {
+export const count = async (user_id: number): Promise<object | Error> => {
   try {
-    const [{ count }] = await Knex(ETableNames.favorites).count<[{ count: number }]>("* as count");
+    const count = await Knex(ETableNames.favorites)
+      .count("* as count")
+      .where("user_id", "=", user_id)
+      .first();
 
-    if (Number.isInteger(Number(count))) return Number(count);
+    if (typeof count === "object") {
+      return count;
+    }
 
     return new Error("Erro ao buscar a quantidade total de favoritos");
   } catch (error) {

@@ -9,8 +9,6 @@ export const deleteById = async (fav: IFavorite): Promise<void | Error> => {
       .where({ id: fav.id, user_id: fav.user_id })
       .first();
 
-    console.log(favorite);
-
     if (!favorite) {
       return new Error("Favorite not found or does not belong to the user");
     }

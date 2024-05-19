@@ -26,7 +26,6 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
   const userId = Number(req.headers["idUser"]);
 
   const result = await FavoritesProvider.getAll(req.query.page || 1, req.query.limit || 10, userId);
-  const count = await FavoritesProvider.count();
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -34,16 +33,9 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Respons
         default: result.message,
       },
     });
-  } else if (count instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: {
-        default: count.message,
-      },
-    });
   }
 
   res.setHeader("access-control-expose-headers", "x-total-count");
-  res.setHeader("x-total-count", count);
 
   return res.status(StatusCodes.OK).json(result);
 };
