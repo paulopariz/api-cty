@@ -9,9 +9,11 @@ interface ICreateResponse {
 
 export const create = async (fav: Omit<IFavorite, "id">): Promise<ICreateResponse | Error> => {
   try {
-    const isFav = await Knex(ETableNames.favorites).where("job_id", fav.job_id);
+    const isFav = await Knex(ETableNames.favorites)
+      .where("job_id", fav.job_id)
+      .andWhere("user_id", fav.user_id);
 
-    if (isFav) {
+    if (isFav.length > 0) {
       return new Error("Already in your favorites");
     }
 

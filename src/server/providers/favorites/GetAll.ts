@@ -12,7 +12,7 @@ export const getAll = async (
     const result = await Knex(ETableNames.favorites)
       .join(ETableNames.job, `${ETableNames.favorites}.job_id`, `${ETableNames.job}.id`)
       .where(`${ETableNames.favorites}.user_id`, idUser)
-      .select(`${ETableNames.favorites}.id as favoriteId`, `${ETableNames.job}.*`)
+      .select(`${ETableNames.favorites}.id as favorite_id`, `${ETableNames.job}.*`)
       .paginate({
         perPage: limit,
         currentPage: page,
@@ -30,9 +30,10 @@ export const getAll = async (
 
       const labels = parseArrayString(fav?.labels);
       const languages = parseArrayString(fav?.languages);
+      const favId = Number(fav.favorite_id);
 
       return {
-        id: 1,
+        id: favId,
         job: {
           ...fav,
           labels,

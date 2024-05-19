@@ -9,17 +9,14 @@ interface IParamProps {
   id?: number;
 }
 
-interface IBodyProps extends Omit<IJob, "id"> {}
+interface IBodyProps extends Omit<IJob, "id" | "favorite_id"> {}
 
 export const updateByIdValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
     yup.object().shape({
       title: yup.string().required().min(5).max(70),
       description: yup.string().required().min(20).max(350),
-      urgency_level: yup
-        .string()
-        .nullable()
-        .oneOf(["low", "average", "urgent"]),
+      urgency_level: yup.string().nullable().oneOf(["low", "average", "urgent"]),
       languages: yup.string().required(),
       location_type: yup.string().required().oneOf(["company", "remote"]),
       city: yup.string().nullable(),
@@ -38,10 +35,7 @@ export const updateByIdValidation = validation((getSchema) => ({
   ),
 }));
 
-export const updateById = async (
-  req: Request<IParamProps, {}, IBodyProps>,
-  res: Response
-) => {
+export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res: Response) => {
   if (!req.params.id) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {

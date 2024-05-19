@@ -28,5 +28,6 @@ router.delete("/persons/:id", ensureAuthenticated, PersonsController.deleteByIdV
 //favorites
 router.get("/favorites", ensureAuthenticated, FavoritesController.getAllValidation, FavoritesController.getAll); // prettier-ignore
 router.post("/favorites", ensureAuthenticated, FavoritesController.createValidation, FavoritesController.create); // prettier-ignore
+router.delete("/favorites/:id", ensureAuthenticated, FavoritesController.deleteByIdValidation, FavoritesController.deleteById); // prettier-ignore
 
 export { router };

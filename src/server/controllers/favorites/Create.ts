@@ -5,19 +5,19 @@ import { StatusCodes } from "http-status-codes";
 import { IFavorite } from "../../database/models";
 import { FavoritesProvider } from "../../providers/favorites";
 
-interface IBodyProps extends Omit<IFavorite, "id" | "job"> {}
+interface IBodyProps extends Omit<IFavorite, "id" | "job" | "user_id"> {}
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
     yup.object().shape({
       job_id: yup.number().required(),
-      user_id: yup.number().required(),
     })
   ),
 }));
 
 export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
-  const result = await FavoritesProvider.create(req.body);
+  const user_id = Number(req.headers["idUser"]);
+  const result = await FavoritesProvider.create({ ...req.body, user_id });
 
   if (result instanceof Error) {
     let statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
