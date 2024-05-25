@@ -23,6 +23,11 @@ export const create = async (fav: Omit<IFavorite, "id">): Promise<ICreateRespons
       const job: IJob | undefined = await Knex(ETableNames.job).where("id", result.job_id).first();
 
       if (job) {
+        job.labels = JSON.parse(job.labels.replace(/'/g, '"'));
+        job.languages = JSON.parse(job.languages.replace(/'/g, '"'));
+      }
+
+      if (job) {
         return {
           id: result.id,
           job: job,
