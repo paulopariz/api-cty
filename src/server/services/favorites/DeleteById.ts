@@ -1,4 +1,4 @@
-import { IFavorite } from "./../../database/models/Favorite";
+import { IFavorite } from "../../database/models/Favorite";
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
 

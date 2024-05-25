@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 
-import { PersonProvider } from "./../../providers/persons/index";
+import { PersonProvider } from "../../services/persons/index";
 
 interface IQueryProps {
   page?: number;
@@ -21,10 +21,7 @@ export const getAllValidation = validation((getSchema) => ({
   ),
 }));
 
-export const getAll = async (
-  req: Request<{}, {}, {}, IQueryProps>,
-  res: Response
-) => {
+export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
   const result = await PersonProvider.getAll(
     req.query.page || 1,
     req.query.limit || 10,

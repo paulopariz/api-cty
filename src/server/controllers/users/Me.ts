@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UsersProvider } from "../../providers/users";
+import { UsersProvider } from "../../services/users";
 import { StatusCodes } from "http-status-codes";
 
 export const getMyUser = async (req: Request, res: Response) => {

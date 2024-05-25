@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
-import { JobsProvider } from "../../providers/jobs";
+import { JobsProvider } from "../../services/jobs";
 
 interface IParamProps {
   id?: number;
@@ -36,9 +36,7 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
       });
     }
 
-    return res
-      .status(StatusCodes.OK)
-      .json({ message: "Registro deletado com sucesso" });
+    return res.status(StatusCodes.OK).json({ message: "Registro deletado com sucesso" });
   } catch (error) {
     console.error("e", error);
   }

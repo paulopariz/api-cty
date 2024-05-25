@@ -1,6 +1,6 @@
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
-import { IPerson } from "./../../database/models/Person";
+import { IPerson } from "../../database/models/Person";
 
 export const updateById = async (
   id: number,
@@ -15,14 +15,10 @@ export const updateById = async (
       return new Error("Job não encontrada");
     }
 
-    const result = await Knex(ETableNames.pessoa)
-      .update(person)
-      .where("id", id);
+    const result = await Knex(ETableNames.pessoa).update(person).where("id", id);
 
     if (result > 0) {
-      const updatedPerson = await Knex(ETableNames.pessoa)
-        .where("id", "=", id)
-        .first();
+      const updatedPerson = await Knex(ETableNames.pessoa).where("id", "=", id).first();
 
       if (updatedPerson) {
         return updatedPerson;

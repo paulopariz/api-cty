@@ -4,7 +4,7 @@ import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 
 import { IPerson } from "./../../database/models/Person";
-import { PersonProvider } from "./../../providers/persons/index";
+import { PersonProvider } from "../../services/persons/index";
 
 interface IParamProps {
   id?: number;
@@ -28,10 +28,7 @@ export const updateByIdValidation = validation((getSchema) => ({
   ),
 }));
 
-export const updateById = async (
-  req: Request<IParamProps, {}, IBodyProps>,
-  res: Response
-) => {
+export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res: Response) => {
   if (!req.params.id) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {

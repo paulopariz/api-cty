@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import { validation } from "../../shared/middlewares";
 import { IUser } from "../../database/models";
-import { UsersProvider } from "./../../providers/users";
+import { UsersProvider } from "../../services/users";
 
 interface IBodyProps extends Omit<IUser, "id"> {}
 
@@ -18,10 +18,7 @@ export const signUpValidation = validation((getSchema) => ({
   ),
 }));
 
-export const signUp = async (
-  req: Request<{}, {}, IBodyProps>,
-  res: Response
-) => {
+export const signUp = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
   const result = await UsersProvider.create(req.body);
 
   if (result instanceof Error) {

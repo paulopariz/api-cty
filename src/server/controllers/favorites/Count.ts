@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { IFavorite } from "../../database/models";
-import { FavoritesProvider } from "../../providers/favorites";
+import { FavoritesProvider } from "../../services/favorites";
 
 interface IHeadersProps extends Pick<IFavorite, "user_id"> {}
 

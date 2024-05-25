@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 import { IJob } from "../../database/models";
-import { JobsProvider } from "../../providers/jobs";
+import { JobsProvider } from "../../services/jobs";
 
 interface IBodyProps extends Omit<IJob, "id" | "favorite_id"> {}
 

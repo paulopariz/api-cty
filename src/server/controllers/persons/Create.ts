@@ -4,7 +4,7 @@ import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 
 import { IPerson } from "../../database/models";
-import { PersonProvider } from "./../../providers/persons/index";
+import { PersonProvider } from "../../services/persons/index";
 
 interface IBodyProps extends Omit<IPerson, "id"> {}
 
@@ -18,10 +18,7 @@ export const createValidation = validation((getSchema) => ({
   ),
 }));
 
-export const create = async (
-  req: Request<{}, {}, IBodyProps>,
-  res: Response
-) => {
+export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
   const result = await PersonProvider.create(req.body);
 
   if (result instanceof Error) {

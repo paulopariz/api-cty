@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
-import { JobsProvider } from "../../providers/jobs";
+import { JobsProvider } from "../../services/jobs";
 
 interface IQueryProps {
   id?: number;

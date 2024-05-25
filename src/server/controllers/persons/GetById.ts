@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
 
-import { PersonProvider } from "./../../providers/persons";
+import { PersonProvider } from "../../services/persons";
 
 interface IParamProps {
   id?: number;

@@ -1,6 +1,6 @@
 import { ETableNames } from "../../database/ETableName";
 import { Knex } from "../../database/knex";
-import { IPerson } from "./../../database/models/Person";
+import { IPerson } from "../../database/models/Person";
 
 export const getAll = async (
   page: number,

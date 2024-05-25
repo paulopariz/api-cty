@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import { validation } from "../../shared/middlewares";
 import { IUser } from "../../database/models";
-import { UsersProvider } from "./../../providers/users";
+import { UsersProvider } from "../../services/users";
 import { JWTService, PasswordCrypto } from "../../shared/services";
 
 interface IBodyProps extends Omit<IUser, "id" | "name"> {}
@@ -18,10 +18,7 @@ export const signInValidation = validation((getSchema) => ({
   ),
 }));
 
-export const signIn = async (
-  req: Request<{}, {}, IBodyProps>,
-  res: Response
-) => {
+export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
   const { email, password } = req.body;
 
   const user = await UsersProvider.getByEmail(email);
@@ -34,10 +31,7 @@ export const signIn = async (
     });
   }
 
-  const passwordMatch = await PasswordCrypto.verifyPassword(
-    password,
-    user.password
-  );
+  const passwordMatch = await PasswordCrypto.verifyPassword(password, user.password);
 
   if (!passwordMatch) {
     return res.status(StatusCodes.UNAUTHORIZED).json({

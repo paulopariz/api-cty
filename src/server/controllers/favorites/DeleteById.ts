@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { StatusCodes } from "http-status-codes";
-import { FavoritesProvider } from "../../providers/favorites";
+import { FavoritesProvider } from "../../services/favorites";
 
 import { IFavorite } from "./../../database/models/Favorite";
 
